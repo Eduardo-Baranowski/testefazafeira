@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Repositories\ProductRepository;
+use App\Repositories\ProductUser;
 
 class HomeController extends Controller
 {
@@ -13,10 +14,10 @@ class HomeController extends Controller
     }
 
 
-    public function index()
+    public function index(ProductRepository $produto, ProductUser $produtousuario)
     {
-        $produtos = \App\Classes\Produto::paginate(10);
-        $produtos_usuarios = \App\Classes\ProdutoUsuario::all();
+        $produtos = $produto->paginate(10);
+        $produtos_usuarios = $produtousuario->all();
         return view('home', compact('produtos', 'produtos_usuarios'));
     }
 }

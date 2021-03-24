@@ -4,13 +4,12 @@
 namespace App\Http\Controllers;
 
 use App\Classes\Lista;
-use App\Classes\Produto;
 
-use App\Classes\ProdutoUsuario;
-use App\Models\User;
+use App\Repositories\ListRepository;
+use App\Repositories\ProductRepository;
+use App\Repositories\ProductUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use function Sodium\add;
 
 class ProdutoController extends Controller
 {
@@ -20,29 +19,29 @@ class ProdutoController extends Controller
         return view('pages.produto');
     }
 
-    public function painel()
+    public function painel(ProductRepository $produto, ListRepository $lista)
     {
-        $produtos = \App\Classes\Produto::paginate(10);
-        $produtosd = \App\Classes\Produto::all();
-        $listas = \App\Classes\Lista::all();
+        $produtos = $produto->paginate(10);
+        $produtosd = $produto->all();
+        $listas = $lista->all();
         return view('pages.painel', compact('produtos', 'listas', 'produtosd'));
     }
 
-    public function infoproduto($id)
+    public function infoproduto($id, ProductRepository $produto, ProductUser $produtousuario)
     {
 
-        $produto = Produto::find($id);
-        $produtos_usuarios = \App\Classes\ProdutoUsuario::all();
+        $produto = $produto->find($id);
+        $produtos_usuarios = $produtousuario->all();
         $idd = $id;
         return view('pages.infoproduto', compact('produto', 'produtos_usuarios', 'idd'));
     }
 
-    public function favoritarproduto($id)
+    public function favoritarproduto($id, ProductRepository $produto, ProductUser $produtousuario)
     {
-        $produtos = \App\Classes\Produto::paginate(10);
-        $produto = Produto::find($id);
-        $produtotodos = ProdutoUsuario::all();
-        $produtos_usuarios = \App\Classes\ProdutoUsuario::all();
+        $produtos = $produto->paginate(10);
+        $produto = $produto->find($id);
+        $produtotodos = $produtousuario->all();
+        $produtos_usuarios = $produtousuario->all();
         foreach ($produtotodos as $produto){
             if ($produto->product_id == $id and $produto->user_id == Auth::user()->id){
                 return view('home', compact('produtos', 'produtos_usuarios'));
@@ -63,12 +62,11 @@ class ProdutoController extends Controller
     {
         $request->validate([
             'nome' => 'required|max:255',
-            'cod' => 'required|max:255',
+            'cod' => 'required|numeric|unique:produtos',
             'preco' => ['required','regex:/^\d+([.]\d{1,2})?$/'],
         ]);
 
         $produto = new Produto();
-
 
         $produto->user_id = Auth::user()->id;
         $produto->fill($request->input());
@@ -96,4 +94,8 @@ class ProdutoController extends Controller
         return redirect()->route('pages.painel');
     }
 
+    public function response(array $errors)
+    {
+        return Redirect::back()->withInput()->withErrors($errors);
+    }
 }

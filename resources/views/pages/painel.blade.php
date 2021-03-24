@@ -4,7 +4,10 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <h1 align="center">Meus Produtos</h1>
+                <div class="card card-body card-white">
+                    <div class="card-header">
+                        <h4 align="center" class="card-title">{{ __('Meus Produtos') }}</h4>
+                    </div>
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">
                         {{ session('status') }}
@@ -42,6 +45,7 @@
                     </table>
                         {{ $produtos->links() }}
                 </div>
+                </div>
             </div>
         </div>
     </div>
@@ -50,7 +54,10 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <h1 align="center">Lista de Desejos</h1>
+                <div class="card card-body card-white">
+                    <div class="card-header">
+                        <h4 align="center" class="card-title">{{ __('Lista de Desejos') }}</h4>
+                    </div>
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">
                         {{ session('status') }}
@@ -90,22 +97,22 @@
                     </table>
                 </div>
             </div>
+            </div>
         </div>
     </div>
     <br>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <h1 align="center">Adicionar Produtos a Lista de Desejos</h1>
                 <div class="card card-body card-white">
                     <div class="card-header">
-                        <h4 class="card-title">{{ __('Registro de Desejo') }}</h4>
+                        <h4 align="center" class="card-title">{{ __('Registro de Desejo') }}</h4>
                     </div>
                     <form action="{{ route('pages.storedesejo') }}" method="POST">
                         @csrf
 
                         <div class="form-group">
-
+                            <br>
                             @php( $field = 'produto' )
                             <label for="{{ $field }}">Produtos</label>
 
