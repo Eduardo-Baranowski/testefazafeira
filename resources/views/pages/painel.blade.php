@@ -24,11 +24,12 @@
                         </thead>
                         <tbody>
                         @forelse ($produtos as $produto)
-                            @if ($produto->user_id == (Auth::user()->id))
+
                                 <tr>
-                                    <td>{{ $produto->cod}}</td>
-                                    <td>{{ $produto->nome}}</td>
-                                    <td>{{ $produto->preco}}</td>
+                                    @if ($produto->user_id == (Auth::user()->id))
+                                        <td>{{ $produto->cod}}</td>
+                                        <td>{{ $produto->nome}}</td>
+                                        <td>{{ $produto->preco}}</td>
                                     @else
                                         @continue
                                     @endif

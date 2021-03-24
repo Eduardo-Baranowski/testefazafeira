@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\ProductRepository;
-use App\Repositories\ProductUser;
+use App\Repositories\Contracts\ProductRepositoryInterface;
+use App\Repositories\Eloquent\ProductUserRepository;
 
 class HomeController extends Controller
 {
@@ -14,7 +14,7 @@ class HomeController extends Controller
     }
 
 
-    public function index(ProductRepository $produto, ProductUser $produtousuario)
+    public function index(ProductRepositoryInterface $produto, ProductUserRepository $produtousuario)
     {
         $produtos = $produto->paginate(10);
         $produtos_usuarios = $produtousuario->all();

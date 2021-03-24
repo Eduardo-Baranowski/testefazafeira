@@ -4,10 +4,12 @@
 namespace App\Http\Controllers;
 
 use App\Classes\Lista;
+use App\Classes\Produto;
 
-use App\Repositories\ListRepository;
-use App\Repositories\ProductRepository;
-use App\Repositories\ProductUser;
+use App\Classes\ProdutoUsuario;
+use App\Repositories\Contracts\ListRepositoryInterface;
+use App\Repositories\Contracts\ProductRepositoryInterface;
+use App\Repositories\Contracts\ProductUserRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,7 +21,7 @@ class ProdutoController extends Controller
         return view('pages.produto');
     }
 
-    public function painel(ProductRepository $produto, ListRepository $lista)
+    public function painel(ProductRepositoryInterface $produto, ListRepositoryInterface $lista)
     {
         $produtos = $produto->paginate(10);
         $produtosd = $produto->all();
@@ -27,7 +29,7 @@ class ProdutoController extends Controller
         return view('pages.painel', compact('produtos', 'listas', 'produtosd'));
     }
 
-    public function infoproduto($id, ProductRepository $produto, ProductUser $produtousuario)
+    public function infoproduto($id, ProductRepositoryInterface $produto, ProductUserRepositoryInterface $produtousuario)
     {
 
         $produto = $produto->find($id);
@@ -36,7 +38,7 @@ class ProdutoController extends Controller
         return view('pages.infoproduto', compact('produto', 'produtos_usuarios', 'idd'));
     }
 
-    public function favoritarproduto($id, ProductRepository $produto, ProductUser $produtousuario)
+    public function favoritarproduto($id, ProductRepositoryInterface $produto, ProductUserRepositoryInterface $produtousuario)
     {
         $produtos = $produto->paginate(10);
         $produto = $produto->find($id);
