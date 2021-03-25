@@ -12,7 +12,7 @@
 - Cada usuário poderá adicionar um produto seu, ou de outro usuário em sua lista de desejos.
 - Dentro do painel, cada produto terá uma página interna em que mostra os dados dos produtos, e quantos usuários favoritaram o produto.
 - Listagens de produtos com paginação.
-- Versão 7.3 do PHP
+- Versão 8.0.3 do PHP
 - Laravel Installer 4.0.4
 - Composer version 2.0.11
 
