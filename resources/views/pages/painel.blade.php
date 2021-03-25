@@ -78,10 +78,10 @@
                             @if ($lista->user_id == (Auth::user()->id))
                                 <tr>
                                     <td>{{ $lista->product_id}}</td>
-                                    @foreach ($produtosd as $produto )
-                                        @if ($produto->id == $lista->product_id)
-                                            <td>{{ $produto->nome}}</td>
-                                            <td><a href="{{ route('pages.infoproduto', $produto->id ) }}">Info</a></td>
+                                    @foreach ($produtosd as $produtod )
+                                        @if ($produtod->id == $lista->product_id)
+                                            <td>{{ $produtod->nome}}</td>
+                                            <td><a href="{{ route('pages.infoproduto', $produtod->id ) }}">Info</a></td>
                                         @endif
                                     @endforeach
                                     @else
@@ -121,9 +121,9 @@
 
                                 <option>Select Product</option>
 
-                                @foreach ($produtos as $produto)
-                                    <option value="{{ $produto->id }}">
-                                        {{ $produto->nome }}
+                                @foreach ($produtosd as $produtodd)
+                                    <option value="{{ $produtodd->id }}">
+                                        {{ $produtodd->nome }}
                                     </option>
                                 @endforeach
                             </select>

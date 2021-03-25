@@ -61,7 +61,7 @@
                         </div>
                     @endforelse
                         <br>
-                        {{ $produtos->links() }}
+                        {{ $produtos_usuarios->links() }}
                 </div>
             </div>
         </div>

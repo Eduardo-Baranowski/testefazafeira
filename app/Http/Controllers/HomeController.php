@@ -16,8 +16,8 @@ class HomeController extends Controller
 
     public function index(ProductRepositoryInterface $produto, ProductUserRepository $produtousuario)
     {
-        $produtos = $produto->paginate(10);
-        $produtos_usuarios = $produtousuario->all();
+        $produtos = $produto->all();
+        $produtos_usuarios = $produtousuario->paginate(10);
         return view('home', compact('produtos', 'produtos_usuarios'));
     }
 }
